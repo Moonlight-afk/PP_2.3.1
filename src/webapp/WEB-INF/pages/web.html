@@ -5,6 +5,9 @@
     <title></title>
 </head>
 <body>
-
+<h1>Hello</h1>
+    <th:block th:each="msg : ${users}">
+        <h1 th:utext="${msg}"></h1>
+    </th:block>
 </body>
 </html>

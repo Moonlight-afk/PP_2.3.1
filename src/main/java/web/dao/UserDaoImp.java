@@ -1,13 +1,8 @@
 package web.dao;
 
-import web.models.Users;
-
-
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-
 import org.springframework.stereotype.Repository;
-
+import web.models.Users;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -29,7 +24,7 @@ public class UserDaoImp implements UserDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Users> listUsers() {
-        TypedQuery<Users> query = sessionFactory.getCurrentSession().createQuery("from User");
+        TypedQuery<Users> query = sessionFactory.getCurrentSession().createSQLQuery("select * from users");
         return query.getResultList();
     }
 
@@ -39,12 +34,5 @@ public class UserDaoImp implements UserDao {
         for (Users user : users) {
             sessionFactory.getCurrentSession().delete(user);
         }
-    }
-
-    @Override
-    public Users findOwner(String car_name, int car_series) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select u from User u,Car c where u.car.id = c.id and c.model = :car_name and " +
-                "c.series = :car_series");
-        return (Users) query.setParameter("car_name",car_name).setParameter("car_series",car_series).getSingleResult();
     }
 }

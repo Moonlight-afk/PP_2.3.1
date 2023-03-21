@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import web.models.Users;
 
 import javax.sql.DataSource;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "hiber")
+@ComponentScan(value = "web")
 public class AppConfig {
 
     private final Environment env;
@@ -47,7 +48,7 @@ public class AppConfig {
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(User.class, Car.class);
+        factoryBean.setAnnotatedClasses(Users.class);
         return factoryBean;
     }
 
